@@ -42,7 +42,7 @@ export default function HeroSection({
       <div className="relative z-10 mx-auto max-w-6xl">
         <p className="reveal overline">Reputation Engineering / Since 1988</p>
         <h1 className="reveal headline mt-6 max-w-5xl">
-          Reinventing Networking Since 1988.
+          Reinventing networking Since 1988.
           <span className="block text-zinc-500">Now with cinematic 3D storytelling optics.</span>
         </h1>
         <p className="reveal mt-8 max-w-2xl text-lg text-zinc-300/90">

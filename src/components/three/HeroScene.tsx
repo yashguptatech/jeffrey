@@ -5,6 +5,13 @@ import { Stars } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
+const SEED_MULTIPLIER_X = 12.9898;
+const SEED_SCALE_X = 43758.5453;
+const SEED_MULTIPLIER_Y = 4.1414;
+const SEED_SCALE_Y = 12345.6789;
+const SEED_MULTIPLIER_Z = 9.7231;
+const SEED_SCALE_Z = 67890.1234;
+
 function CameraDrift() {
   useFrame(({ camera, clock }) => {
     const t = clock.getElapsedTime();
@@ -58,9 +65,9 @@ function DustField() {
     const arr = new Float32Array(600 * 3);
     for (let i = 0; i < 600; i += 1) {
       // Deterministic hash-like constants keep particle placement stable across rerenders.
-      const seedX = Math.sin(i * 12.9898) * 43758.5453;
-      const seedY = Math.sin((i + 101) * 4.1414) * 12345.6789;
-      const seedZ = Math.sin((i + 211) * 9.7231) * 67890.1234;
+      const seedX = Math.sin(i * SEED_MULTIPLIER_X) * SEED_SCALE_X;
+      const seedY = Math.sin((i + 101) * SEED_MULTIPLIER_Y) * SEED_SCALE_Y;
+      const seedZ = Math.sin((i + 211) * SEED_MULTIPLIER_Z) * SEED_SCALE_Z;
       arr[i * 3] = (seedX - Math.floor(seedX) - 0.5) * 9;
       arr[i * 3 + 1] = (seedY - Math.floor(seedY) - 0.5) * 6;
       arr[i * 3 + 2] = (seedZ - Math.floor(seedZ) - 0.5) * 8;
