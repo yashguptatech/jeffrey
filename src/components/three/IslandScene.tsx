@@ -75,7 +75,12 @@ export default function IslandScene({
       <directionalLight position={[-2, 1, -1]} intensity={0.6} color="#ffe6b8" />
       <IslandMesh hotspots={hotspots} activeId={activeId} />
       {guided ? <GuidedCamera target={active.camera} /> : null}
-      <OrbitControls enablePan={false} enableZoom={!guided} enableRotate autoRotate={!guided} />
+      <OrbitControls
+        enablePan={false}
+        enableZoom={!guided}
+        enableRotate={!guided}
+        autoRotate={!guided}
+      />
     </Canvas>
   );
 }

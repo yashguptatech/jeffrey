@@ -57,6 +57,7 @@ function DustField() {
   const particles = useMemo(() => {
     const arr = new Float32Array(600 * 3);
     for (let i = 0; i < 600; i += 1) {
+      // Deterministic hash-like constants keep particle placement stable across rerenders.
       const seedX = Math.sin(i * 12.9898) * 43758.5453;
       const seedY = Math.sin((i + 101) * 4.1414) * 12345.6789;
       const seedZ = Math.sin((i + 211) * 9.7231) * 67890.1234;

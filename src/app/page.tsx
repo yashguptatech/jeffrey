@@ -13,6 +13,11 @@ import LegacySection from "@/components/scenes/LegacySection";
 import { useExperienceMode } from "@/hooks/useExperienceMode";
 
 export default function Home() {
+  const PEOPLE_SHIFT_RANGE: [number, number] = [0.2, 0.46];
+  const MAP_SHIFT_RANGE: [number, number] = [0.42, 0.68];
+  const PEOPLE_SHIFT_OFFSET = 120;
+  const MAP_SHIFT_OFFSET = 130;
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const GLITCH_PULSE_INTERVAL_MS = 1800;
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -24,8 +29,8 @@ export default function Home() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 130, damping: 32 });
 
   const heroParallax = useTransform(smoothProgress, [0, 0.24], [0, -180]);
-  const peopleShift = useTransform(smoothProgress, [0.2, 0.46], [120, 0]);
-  const mapShift = useTransform(smoothProgress, [0.42, 0.68], [130, 0]);
+  const peopleShift = useTransform(smoothProgress, PEOPLE_SHIFT_RANGE, [PEOPLE_SHIFT_OFFSET, 0]);
+  const mapShift = useTransform(smoothProgress, MAP_SHIFT_RANGE, [MAP_SHIFT_OFFSET, 0]);
   const legacyOpacity = useTransform(smoothProgress, [0.7, 1], [1, 0.35]);
 
   useEffect(() => {
