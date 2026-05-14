@@ -10,13 +10,19 @@ import * as THREE from "three";
 
 function DistortedGlobe() {
   const meshRef = useRef<THREE.Mesh>(null);
+  const ROTATION_SPEED_Y = 0.13;
+  const ROTATION_X_WAVE_FREQUENCY = 0.2;
+  const ROTATION_AMPLITUDE_X = 0.12;
+  const FLOAT_SPEED = 0.7;
+  const FLOAT_AMPLITUDE = 0.05;
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
     if (meshRef.current) {
-      meshRef.current.rotation.y = t * 0.13;
-      meshRef.current.rotation.x = Math.sin(t * 0.2) * 0.12;
-      meshRef.current.position.y = Math.sin(t * 0.7) * 0.05;
+      meshRef.current.rotation.y = t * ROTATION_SPEED_Y;
+      meshRef.current.rotation.x =
+        Math.sin(t * ROTATION_X_WAVE_FREQUENCY) * ROTATION_AMPLITUDE_X;
+      meshRef.current.position.y = Math.sin(t * FLOAT_SPEED) * FLOAT_AMPLITUDE;
     }
   });
 
@@ -68,6 +74,7 @@ function MagneticButton({
 
 export default function Home() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const GLITCH_PULSE_INTERVAL_MS = 1800;
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [legacyPulse, setLegacyPulse] = useState(false);
 
@@ -101,7 +108,10 @@ export default function Home() {
       });
     }, wrapperRef);
 
-    const interval = setInterval(() => setLegacyPulse((value) => !value), 1800);
+    const interval = setInterval(
+      () => setLegacyPulse((value) => !value),
+      GLITCH_PULSE_INTERVAL_MS,
+    );
 
     const onMouseMove = (e: MouseEvent) => {
       setMouse({ x: e.clientX, y: e.clientY });
@@ -263,8 +273,11 @@ export default function Home() {
             <div className="collapse-card">Narrative rewrite failed</div>
           </div>
           <p className="mt-12 text-xs uppercase tracking-[0.24em] text-zinc-500">
-            easter egg: press <kbd className="rounded border border-zinc-700 px-2 py-1">⌘/Ctrl + K</kbd> for
-            absolutely no legal advice.
+            <span aria-label="Easter egg keyboard shortcut prompt">easter egg: press </span>
+            <kbd className="rounded border border-zinc-700 px-2 py-1">
+              ⌘/Ctrl + K
+            </kbd>{" "}
+            for absolutely no legal advice.
           </p>
         </div>
       </motion.section>
